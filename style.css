@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    background: #074357; /* Ensures the entire body has the same background color */
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+.tour {
+    min-height: 100vh; /* Still ensures the `.tour` container covers the viewport */
+    margin: 0;
+}
+
+
+h2 {
+    margin: 0;
+    color: white;
+}
+
+.tour__head {
+    padding-top: 10vh;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.image-container {
+    height: 26.190rem;
+    position: relative;
+    width: 78%;
+    display: block;
+    margin: 0 auto;
+    margin-left: 12%;
+    border: 2px solid #ebb47a;
+    border-radius: 10px;
+}
+
+canvas {
+    width: 100%;
+}
+
+/* Survey Inputs */
+.survey-inputs {
+    margin: 20px 12%;
+    color: white;
+}
+
+.survey-inputs label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.survey-inputs textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 78%;
+    margin: 20px auto;
+}
+
+.navigation-buttons button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.navigation-buttons button:hover {
+    background-color: #0056b3;
+}

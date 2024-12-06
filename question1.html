@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panolens</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="tour">
+        <div class="container">
+            <div class="tour__head">
+                <h2>3D TOUR</h2>
+            </div>
+
+            <div class="image-container"></div>
+            
+            <!-- Survey Text Boxes -->
+            <div class="survey-inputs">
+                <label for="question1">What do you think about this view?</label>
+                <textarea id="question1" rows="3" placeholder="Type your answer here..."></textarea>
+
+                <label for="question2">Any suggestions for improvement?</label>
+                <textarea id="question2" rows="3" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation-buttons">
+                <button id="prev-btn">Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
+    <script src="./js/panolens.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
