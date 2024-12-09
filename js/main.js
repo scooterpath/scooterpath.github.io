@@ -1,22 +1,42 @@
-const panorama = new PANOLENS.ImagePanorama( 'images/test0.png' );
-const panorama2 = new PANOLENS.ImagePanorama('images/test1.png');
-let imageContainer = document.querySelector('.image-container')
+// Viewer Configuration
+const viewerConfig = {
+  autoRotate: false,
+  autoRotateSpeed: 0.3,
+  controlBar: true,
+};
 
+// Fetch the container
+const imageContainer = document.querySelector('.image-container');
 
-var infospotPositions = [
-    new THREE.Vector3(-2136.06, 16.30, 890.14),
-    new THREE.Vector3(-4236.06, 16.30, 890.14),
-    
-  ];
+// Extract image set from data attributes
+const dataImages = imageContainer.dataset.images.split(','); // Convert CSV string to array
+const imagePath = imageContainer.dataset.path; // Get the path for images
 
+// Dynamically Create Panoramas
+const panoramas = [];
 const viewer = new PANOLENS.Viewer({
-    container: imageContainer,
-    autoRotate: false,
-    autoRotateSpeed: 0.3,
-    controlBar: true,
+  container: imageContainer,
+  ...viewerConfig,
 });
 
-panorama.link( panorama2, infospotPositions[0]);
-panorama2.link( panorama, infospotPositions[1]);
+// Predefined Positions
+const forwardPosition = new THREE.Vector3(-2000, 0, 0);
+const backwardPosition = new THREE.Vector3(2000, 0, 0);
 
-viewer.add( panorama,panorama2 );
+// Generate panoramas and link them
+dataImages.forEach((image, index) => {
+  const panorama = new PANOLENS.ImagePanorama(`${imagePath}${image}`);
+  panoramas.push(panorama);
+  viewer.add(panorama);
+
+  // Linking logic
+  if (index > 0) {
+      panoramas[index - 1].link(panorama, forwardPosition); // Link previous to current
+      panorama.link(panoramas[index - 1], backwardPosition); // Link current back to previous
+  }
+});
+
+// Set the first panorama
+if (panoramas.length > 0) {
+  viewer.setPanorama(panoramas[0]);
+}
