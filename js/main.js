@@ -20,8 +20,8 @@ const viewer = new PANOLENS.Viewer({
 });
 
 // Predefined Positions
-const forwardPosition = new THREE.Vector3(-2000, 0, 0);
-const backwardPosition = new THREE.Vector3(2000, 0, 0);
+const forwardPosition = new THREE.Vector3(-2000, -700, 0);
+const backwardPosition = new THREE.Vector3(2000, -700, 0);
 
 // Generate panoramas and link them
 dataImages.forEach((image, index) => {
