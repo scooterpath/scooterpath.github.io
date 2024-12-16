@@ -9,27 +9,30 @@ const imagePath = imageContainer.dataset.path; // Get the path for images
 setupPanolens(imageContainer, dataImages, imagePath);
 
 // Attach the save function to your Save button
-let githubToken;
+function decrypt(input) {
+  const shift = 4;
+  let decrypted = "";
 
-async function loadToken() {
-    try {
-        const response = await fetch('token.txt'); // Adjust path if token.txt is in another folder
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        githubToken = await response.text(); // Read file content as text
-        console.log("Token Loaded:", githubToken.trim());
-        // Use githubToken in your logic
-    } catch (error) {
-        console.error("Error loading token:", error);
+  for (let i = 0; i < input.length; i++) {
+    const char = input[i];
+
+    if (char.match(/[a-zA-Z]/)) { // Check if the character is a letter
+      const base = char === char.toUpperCase() ? 65 : 97; // 'A' = 65, 'a' = 97
+      // Perform the reverse shift and wrap around using modulo
+      decrypted += String.fromCharCode(((char.charCodeAt(0) - base - shift + 26) % 26) + base);
+    } else {
+      // Non-alphabetic characters are added as-is
+      decrypted += char;
     }
+  }
+
+  return decrypted;
 }
 
-// Call the function to load the token
-loadToken();
+const token = decrypt("klt_d9OfiJfPnPAhv6uPy06h3AEEsMlzNo2rn4z0");
 
 //const token = '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'; // Replace with your token
 const repo = 'bikepathsurvey/BikePathSurvey'; // Replace with your GitHub repo
 document.getElementById('save-btn').addEventListener('click', () => {
-  saveSurveyAnswersToGitHub(githubToken, repo);
+  saveSurveyAnswersToGitHub(token, repo);
 });
