@@ -1,84 +1,65 @@
 export async function saveSurveyAnswersToGitHub(finalData) {
     const token = decrypt("klt_d9OfiJfPnPAhv6uPy06h3AEEsMlzNo2rn4z0");
     const repo = 'bikepathsurvey/BikePathSurvey'; // Replace with your GitHub repo
-    const email = finalData.email;
 
-    // Sanitize email to create a valid filename
-    const sanitizedEmail = email.replace('@', '').replace('.', '') + '.json';
+    // Create a unique hashed filename for the survey response
+    const email = finalData.email;
+    const hashedName = await generateHash(email) + '.json'; // Await the hash generation
+
+    // Remove the email from the finalData object
+    delete finalData.email;
+
+    // Iterate over each response in `responses` and remove the `email` key
+    Object.values(finalData.responses).forEach((response) => {
+        delete response.email;
+    });
 
     // Structure the data to be saved
     const fileContent = JSON.stringify(finalData, null, 2); // Convert data to JSON
     const encodedContent = btoa(fileContent); // Encode content in Base64 (required by GitHub API)
 
-    const path = `responses/${sanitizedEmail}`;
+    const path = `testingresponses/${hashedName}`;
 
     try {
-        // Check if the file exists on GitHub
-        const fileResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+        // Create or overwrite the file directly
+        const createResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+            method: 'PUT',
             headers: {
                 Authorization: `Bearer ${token}`,
-            }
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: 'Add or overwrite survey response',
+                content: encodedContent,
+            }),
         });
 
-        const fileData = await fileResponse.json();
-
-        if (fileResponse.status === 200) {
-            // If file exists, fetch current content and update it
-            const currentContent = JSON.parse(atob(fileData.content)); // Decode existing content
-            const updatedContent = {
-                ...currentContent,
-                responses: finalData.responses, // Update the responses
-                timestamp: new Date().toISOString() // Update timestamp
-            };
-
-            const updatedEncodedContent = btoa(JSON.stringify(updatedContent, null, 2)); // Encode the updated content
-
-            // Update the file on GitHub with the SHA (to avoid the 409 conflict)
-            const updateResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: 'Update survey response',
-                    content: updatedEncodedContent,
-                    sha: fileData.sha // Required for updating the file
-                }),
-            });
-
-            if (updateResponse.ok) {
-                alert('Response updated successfully!');
-            } else {
-                console.error(await updateResponse.json());
-                alert('Failed to update response.');
-            }
-        } else if (fileResponse.status === 404) {
-            // If file does not exist, create a new one
-            const createResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: 'Add new survey response',
-                    content: encodedContent,
-                }),
-            });
-
-            if (createResponse.ok) {
-                alert('Response saved successfully!');
-            } else {
-                console.error(await createResponse.json());
-                alert('Failed to save response.');
-            }
+        if (createResponse.ok) {
+            alert('Response saved successfully!');
+        } else {
+            console.error(await createResponse.json());
+            alert('Failed to save response.');
         }
     } catch (error) {
         console.error('Error saving response:', error);
         alert('An error occurred while saving the response.');
     }
 }
+
+// Generate a one-way hash of a string using SHA-256 (Browser-friendly Web Crypto API)
+async function generateHash(input) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input); // Convert input string to Uint8Array
+
+    // Use SubtleCrypto to hash the data
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+    // Convert ArrayBuffer to hex string
+    return Array.from(new Uint8Array(hashBuffer))
+        .map((byte) => byte.toString(16).padStart(2, '0'))
+        .join('');
+}
+
 
 // Simple email validation
 function validateEmail(email) {
