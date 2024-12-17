@@ -33,6 +33,3 @@ const token = decrypt("klt_d9OfiJfPnPAhv6uPy06h3AEEsMlzNo2rn4z0");
 
 //const token = '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'; // Replace with your token
 const repo = 'bikepathsurvey/BikePathSurvey'; // Replace with your GitHub repo
-document.getElementById('save-btn').addEventListener('click', () => {
-  saveSurveyAnswersToGitHub(token, repo);
-});
