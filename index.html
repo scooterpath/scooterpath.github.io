@@ -10,8 +10,47 @@
 <body>
     <div class="welcome-container">
         <h1>Welcome to the Survey!</h1>
+        
+
+        <!-- Email Input Section -->
+        <div class="email-section">
+            <label for="userEmail">Enter your email:</label>
+            <input type="email" id="userEmail" placeholder="Enter your email" />
+            <button onclick="saveEmail()">Save Email</button>
+        </div>
         <p>Click the button below to start the survey.</p>
-        <button onclick="location.href='q1.html'">Start Survey</button>
+        <button id="startSurveyBtn" onclick="location.href='survey.html'" disabled>Start Survey</button>
     </div>
+
+    <script>
+        // Check if email is already saved in localStorage
+        if (localStorage.getItem('userEmail')) {
+            document.getElementById('userEmail').value = localStorage.getItem('userEmail');
+            enableStartSurveyButton(); // Enable button if email is set
+        }
+
+        // Function to save the email in localStorage
+        function saveEmail() {
+            const email = document.getElementById('userEmail').value;
+            if (email) {
+                localStorage.setItem('userEmail', email);
+                alert('Email saved successfully!');
+                enableStartSurveyButton(); // Enable button when email is set
+            } else {
+                alert('Please enter a valid email.');
+                disableStartSurveyButton(); // Disable button if email is not entered
+            }
+        }
+
+        // Function to enable the "Start Survey" button
+        function enableStartSurveyButton() {
+            document.getElementById('startSurveyBtn').disabled = false;
+        }
+
+        // Function to disable the "Start Survey" button
+        function disableStartSurveyButton() {
+            document.getElementById('startSurveyBtn').disabled = true;
+        }
+    </script>
 </body>
 </html>

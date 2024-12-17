@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="module" src="./js/main.js"></script>
+    <title>Survey Completion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="survey-completion">
+        <div class="container">
+            <h2>Thank you for completing the survey!</h2>
+            <p>Your answers have been recorded. Click the button below to submit your answers and store them.</p>
+
+            <!-- Submit Button -->
+            <div class="navigation-buttons">
+                <button id="submit-btn">Submit Answers</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+    import { saveSurveyAnswersToGitHub } from './js/githubresponse.js';
+
+        // Handle the Submit button click
+        document.getElementById('submit-btn').addEventListener('click', () => {
+            // Retrieve answers from localStorage
+            const answers = {
+                q1: JSON.parse(localStorage.getItem('q1_answers')),
+                q2: JSON.parse(localStorage.getItem('q2_answers')),
+                q3: JSON.parse(localStorage.getItem('q3_answers')),
+                // Add more pages if necessary
+            };
+
+            // Combine answers into a final data object
+            const finalData = {
+                email: answers.q1.email,  // Assuming the email is the same for all pages
+                responses: answers,
+                timestamp: new Date().toISOString(),
+            };
+
+            // Function to store the answers to GitHub
+            saveSurveyAnswersToGitHub(finalData); // Ensure you have this function defined to handle the upload
+        });
+    </script>
+
+</body>
+</html>
