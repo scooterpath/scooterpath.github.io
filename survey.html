@@ -43,17 +43,14 @@
         // Define questions for each page
         const questions = [
             {
-                title: 'Question 1',
                 images: 'test5.png,test6.png,test7.png,test8.png,test9.png',
                 path: 'images/test/',
             },
             {
-                title: 'Question 2',
                 images: 'test0.png,test1.png,test2.png,test3.png,test4.png',
                 path: 'images/test/',
             },
             {
-                title: 'Question 3',
                 images: 'rbushnell0.jpg,rbushnell1.jpg,rbushnell2.jpg,rbushnell3.jpg,rbushnell4.jpg',
                 path: 'images/bushnell/'
             }
@@ -61,7 +58,8 @@
         ];
 
         // Set the title and image container based on the current page
-        document.getElementById('question-title').textContent = questions[currentPage - 1].title;
+        //document.getElementById('question-title').textContent = questions[currentPage - 1].title;
+        document.getElementById('question-title').textContent = `Question ${currentPage} / ${questions.length}`;
         document.getElementById('image-container').setAttribute('data-images', questions[currentPage - 1].images);
         document.getElementById('image-container').setAttribute('data-path', questions[currentPage - 1].path);
 
