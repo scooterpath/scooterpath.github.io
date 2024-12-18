@@ -27,12 +27,19 @@
         // Handle the Submit button click
         document.getElementById('submit-btn').addEventListener('click', () => {
             // Retrieve answers from localStorage
-            const answers = {
-                q1: JSON.parse(localStorage.getItem('q1_answers')),
-                q2: JSON.parse(localStorage.getItem('q2_answers')),
-                q3: JSON.parse(localStorage.getItem('q3_answers')),
-                // Add more pages if necessary
-            };
+            function getAnswers(n) {
+                const answers = {};
+
+                for (let i = 1; i <= n; i++) {
+                    answers[`q${i}`] = JSON.parse(localStorage.getItem(`q${i}_answers`));
+                }
+
+                return answers;
+            }
+
+            // Example usage:
+            const n = 6; // Specify the total number of questions
+            const answers = getAnswers(n);
 
             // Combine answers into a final data object
             const finalData = {
