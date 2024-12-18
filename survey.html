@@ -39,12 +39,18 @@
     <script>
         // Get the current page number from URL or default to 1
         const currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
-
+        function generateImageNames(baseName, startIndex, endIndex, extension) {
+            const images = [];
+            for (let i = startIndex; i <= endIndex; i++) {
+                images.push(`${baseName}${i}.${extension}`);
+            }
+            return images.join(','); // Convert the array to a comma-separated string
+        }
         // Define questions for each page
         const questions = [
             {
-                images: 'test5.png,test6.png,test7.png,test8.png,test9.png',
-                path: 'images/test/',
+                images: generateImageNames('blvd',0,19,'jpg'),
+                path: 'images/blvd/',
             },
             {
                 images: 'test0.png,test1.png,test2.png,test3.png,test4.png',
