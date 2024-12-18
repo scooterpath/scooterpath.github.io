@@ -39,29 +39,51 @@
     <script>
         // Get the current page number from URL or default to 1
         const currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
-
+        function generateImageNames(baseName, startIndex, endIndex, extension) {
+            const images = [];
+            for (let i = startIndex; i <= endIndex; i++) {
+                images.push(`${baseName}${i}.${extension}`);
+            }
+            return images.join(','); // Convert the array to a comma-separated string
+        }
         // Define questions for each page
         const questions = [
             {
-                title: 'Question 1',
-                images: 'test5.png,test6.png,test7.png,test8.png,test9.png',
-                path: 'images/test/',
+                name: "Boulevard",
+                images: generateImageNames('blvd',0,19,'jpg'),
+                path: 'images/blvd/',
             },
             {
-                title: 'Question 2',
-                images: 'test0.png,test1.png,test2.png,test3.png,test4.png',
-                path: 'images/test/',
+                name: "Asylum",
+                images: generateImageNames('asylum',0,19,'jpg'),
+                path: 'images/asylum/',
             },
             {
-                title: 'Question 3',
-                images: 'rbushnell0.jpg,rbushnell1.jpg,rbushnell2.jpg,rbushnell3.jpg,rbushnell4.jpg',
-                path: 'images/bushnell/'
+                name: "Brookfield",
+                images: generateImageNames('brookfield',0,19,'jpg'),
+                path: 'images/brookfield/'
+            },
+            {
+                name: "Canal Road",
+                images: generateImageNames('canalroad',0,21,'jpg'),
+                path: 'images/canalroad/'
+            },
+            {
+                name: "Capitol",
+                images: generateImageNames('capitol',0,19,'jpg'),
+                path: 'images/capitol/'
+            },
+            {
+                name: "Farmington",
+                images: generateImageNames('farmington',0,11,'jpg'),
+                path: 'images/farmington/'
             }
             // Add more questions here
         ];
 
         // Set the title and image container based on the current page
-        document.getElementById('question-title').textContent = questions[currentPage - 1].title;
+        //document.getElementById('question-title').textContent = questions[currentPage - 1].title;
+        document.getElementById('question-title').textContent = `Question ${currentPage} / ${questions.length}: ${questions[currentPage - 1].name}`;
         document.getElementById('image-container').setAttribute('data-images', questions[currentPage - 1].images);
         document.getElementById('image-container').setAttribute('data-path', questions[currentPage - 1].path);
 
