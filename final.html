@@ -4,8 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script type="module" src="./js/main.js"></script>
-    <title>Survey Completion</title>
+    <title>Bike Path Survey Completion</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Centering styles */
+        .survey-completion {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full height of the viewport */
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .survey-completion h2,
+        .survey-completion p {
+            margin: 0 0 20px 0; /* Add space between the heading and paragraph */
+        }
+    </style>
 </head>
 <body>
     <div class="survey-completion">
@@ -22,7 +38,7 @@
     </div>
 
     <script type="module">
-    import { saveSurveyAnswersToGitHub } from './js/githubresponse.js';
+        import { saveSurveyAnswersToGitHub } from './js/githubresponse.js';
 
         // Handle the Submit button click
         document.getElementById('submit-btn').addEventListener('click', () => {
@@ -38,7 +54,7 @@
             }
 
             // Example usage:
-            const n = 13; // Specify the total number of questions
+            const n = 15; // Specify the total number of questions
             const answers = getAnswers(n);
 
             // Combine answers into a final data object

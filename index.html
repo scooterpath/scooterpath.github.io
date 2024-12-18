@@ -4,22 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Survey</title>
+    <title>Bike Path Survey</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Centering the welcome container */
+        .welcome-container {
+            color:white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full height of the viewport */
+            text-align: center;
+        }
+
+        /* Center the email section and button */
+        .email-section {
+            margin-bottom: 20px;
+        }
+
+        /* Style the start survey button */
+        .navigation-button button {
+            margin-top: 10px;
+            color: white;
+            border: none;
+            background-color: #007BFF;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+
+        /* Additional margin for spacing */
+        .welcome-container h1, .welcome-container p {
+            margin: 10px 0;
+        }
+
+        .email-section input {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="welcome-container">
-        <h1>Welcome to the Survey!</h1>
+        <h1>Welcome to the Bike Path Survey!</h1>
         
-
         <!-- Email Input Section -->
         <div class="email-section">
             <label for="userEmail">Enter your email:</label>
             <input type="email" id="userEmail" placeholder="Enter your email" />
             <button onclick="saveEmail()">Save Email</button>
+            <p><b>This survey will remain anonymous</b></p>
         </div>
         <p>Click the button below to start the survey.</p>
-        <button id="startSurveyBtn" onclick="location.href='survey.html'" disabled>Start Survey</button>
+        <div class="navigation-button">
+            <button id="startSurveyBtn" onclick="location.href='survey.html'" disabled>Start Survey</button>
+        </div>
     </div>
 
     <script>
