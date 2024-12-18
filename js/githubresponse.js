@@ -18,7 +18,7 @@ export async function saveSurveyAnswersToGitHub(finalData) {
     const fileContent = JSON.stringify(finalData, null, 2); // Convert data to JSON
     const encodedContent = btoa(fileContent); // Encode content in Base64 (required by GitHub API)
 
-    const path = `testingresponses/${hashedName}`;
+    const path = `responses/${hashedName}`;
 
     try {
         // Create or overwrite the file directly
