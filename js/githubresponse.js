@@ -1,5 +1,5 @@
 export async function saveSurveyAnswersToGitHub(finalData) {
-    const token = decrypt("klt_d9OfiJfPnPAhv6uPy06h3AEEsMlzNo2rn4z0");
+    const token = decrypt("klt_YeKarZAvEAR2CcJW5nfJV3CNaVljqb3vlBMX");
     const repo = 'bikepathsurvey/BikePathSurvey'; // Replace with your GitHub repo
 
     // Create a unique hashed filename for the survey response
