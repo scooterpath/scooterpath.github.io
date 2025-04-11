@@ -14,17 +14,12 @@
             <div class="tour__head">
                 <h2 id="question-title">Question</h2>
             </div>
-
+            <label>
+                <input type="checkbox" id="toggle-infospot">
+                Enable Infospot Addition
+            </label>
+            
             <div class="image-container" id="image-container"></div>
-
-            <!-- Survey Text Boxes -->
-            <div class="survey-inputs">
-                <label for="question1">What do you think about this path when taken on a bike?</label>
-                <textarea id="question1" rows="3" placeholder="Type your answer here..."></textarea>
-
-                <label for="question2">Any suggestions for improvement?</label>
-                <textarea id="question2" rows="3" placeholder="Type your answer here..."></textarea>
-            </div>
 
             <!-- Navigation Buttons -->
             <div class="navigation-buttons">
@@ -150,30 +145,8 @@
             }
         };
 
-        // Save answers to localStorage when the user clicks "Next"
-        function saveAnswers() {
-            const question1 = document.getElementById('question1').value;
-            const question2 = document.getElementById('question2').value;
-            const email = localStorage.getItem('userEmail');
-
-            if (!email || !validateEmail(email)) {
-                alert('Please enter a valid email.');
-                return;
-            }
-
-            // Store answers for the current page
-            localStorage.setItem(`q${currentPage}_answers`, JSON.stringify({
-                email,
-                q1: question1,
-                q2: question2,
-                timestamp: new Date().toISOString(),
-                page: `q${currentPage}`,
-            }));
-        }
-
         // Navigate to the next page
         function navigateToNextPage() {
-            saveAnswers();
 
             // Proceed to the next page
             if (currentPage < questions.length) {

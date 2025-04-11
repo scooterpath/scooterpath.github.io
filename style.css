@@ -1,80 +1,104 @@
+/* Global styles */
 body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
-    background: #074357; /* Ensures the entire body has the same background color */
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
+    padding: 0;
+    color: #333;
 }
-.tour {
-    min-height: 100vh; /* Still ensures the `.tour` container covers the viewport */
-    margin: 0;
-}
-
 
 h2 {
-    margin: 0;
-    color: white;
+    margin-top: 20px;
+    font-size: 24px;
 }
 
-.tour__head {
-    padding-top: 10vh;
-    text-align: center;
-    margin-bottom: 50px;
+/* Survey layout */
+.tour {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
 }
 
-.image-container {
-    height: 26.190rem;
-    position: relative;
-    width: 78%;
-    display: block;
-    margin: 0 auto;
-    margin-left: 12%;
-    border: 2px solid #ebb47a;
+.container {
+    background-color: white;
+    padding: 20px 30px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 900px;
 }
 
-canvas {
+/* Infospot toggle */
+label {
+    display: inline-block;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Panorama viewer */
+.image-container {
     width: 100%;
+    height: 500px;
+    background-color: #000;
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-/* Survey Inputs */
+/* Survey inputs */
 .survey-inputs {
-    margin: 20px 12%;
-    color: white;
+    margin: 20px 0;
+    text-align: left;
 }
 
 .survey-inputs label {
     display: block;
+    margin: 10px 0 5px;
     font-weight: bold;
-    margin-bottom: 5px;
 }
 
 .survey-inputs textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    resize: none;
+    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    resize: vertical;
+    min-height: 80px;
 }
 
-/* Navigation Buttons */
+/* Buttons */
 .navigation-buttons {
-    display: flex;
-    justify-content: space-between;
-    width: 78%;
-    margin: 20px auto;
+    text-align: center;
+    margin-top: 20px;
 }
 
-.navigation-buttons button {
+button {
     padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
     background-color: #007BFF;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    transition: background-color 0.2s;
 }
 
-.navigation-buttons button:hover {
+button:hover {
     background-color: #0056b3;
+}
+
+/* Email input (readonly) */
+#userEmail {
+    display: block;
+    margin: 20px auto 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 400px;
+    background-color: #eee;
 }
