@@ -9,15 +9,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="auth-bar">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button id="loginBtn">Login</button>
+        <button id="signupBtn">Sign Up</button>
+        <button id="logoutBtn" style="display: none;">Logout</button>
+        <span id="userStatus"></span>
+      </div>
+      
     <div class="tour">
         <div class="container">
             <div class="tour__head">
                 <h2 id="question-title">Question</h2>
             </div>
-            <label>
-                <input type="checkbox" id="toggle-infospot">
-                Enable Infospot Addition
-            </label>
+            <div class="infospot-toggle">
+                <label for="toggle-infospot">
+                  <input type="checkbox" id="toggle-infospot">
+                  Enable Infospot Addition
+                </label>
+              </div>
+              
             
             <div class="image-container" id="image-container"></div>
 
@@ -25,12 +37,90 @@
             <div class="navigation-buttons">
                 <button id="prev-btn" onclick="navigateToPreviousPage()">Previous</button>
                 <button id="next-btn" onclick="navigateToNextPage()">Next</button>
+                <button id="save" onclick="submitInfospotsToSupabase()">Save</button>
             </div>
         </div>
     </div>
 
     <input type="email" id="userEmail" placeholder="Enter your email" required readonly>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlaGNhcXNhbW1xZG15cG5mcmtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzkzOTYwNjgsImV4cCI6MjA1NDk3MjA2OH0.zvRddX9uDnu3RA0jwK4Mg4baRoIcRZ-tDIIdmEPdcmg";
 
+        const supabase = createClient(
+          "https://kehcaqsammqdmypnfrke.supabase.co",
+          SUPABASE_ANON_KEY 
+        );
+        window.supabase = supabase;
+      
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const loginBtn = document.getElementById("loginBtn");
+        const signupBtn = document.getElementById("signupBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const userStatus = document.getElementById("userStatus");
+      
+        async function updateAuthUI() {
+          const { data: { user } } = await supabase.auth.getUser();
+          if (user) {
+            emailInput.style.display = "none";
+            passwordInput.style.display = "none";
+            loginBtn.style.display = "none";
+            signupBtn.style.display = "none";
+            logoutBtn.style.display = "inline-block";
+            userStatus.textContent = `Logged in as: ${user.email}`;
+            localStorage.setItem("userEmail", user.email);
+            localStorage.setItem("userUUID", user.id);
+            document.getElementById("userEmail").value = user.email;
+          } else {
+            emailInput.style.display = "inline-block";
+            passwordInput.style.display = "inline-block";
+            loginBtn.style.display = "inline-block";
+            signupBtn.style.display = "inline-block";
+            logoutBtn.style.display = "none";
+            userStatus.textContent = "";
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("userUUID");
+          }
+        }
+      
+        async function login() {
+          const { error } = await supabase.auth.signInWithPassword({
+            email: emailInput.value,
+            password: passwordInput.value
+          });
+          if (error) alert("Login failed: " + error.message);
+          else {
+            alert("Login successful!");
+            updateAuthUI();
+          }
+        }
+      
+        async function signup() {
+          const { error } = await supabase.auth.signUp({
+            email: emailInput.value,
+            password: passwordInput.value
+          });
+          if (error) alert("Signup failed: " + error.message);
+          else {
+            alert("Signup successful! Please check your email.");
+            updateAuthUI();
+          }
+        }
+      
+        async function logout() {
+          await supabase.auth.signOut();
+          alert("Logged out!");
+          updateAuthUI();
+        }
+      
+        loginBtn.addEventListener("click", login);
+        signupBtn.addEventListener("click", signup);
+        logoutBtn.addEventListener("click", logout);
+      
+        updateAuthUI();
+      </script>
+      
     <script>
         // Get the current page number from URL or default to 1
         const currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
@@ -136,18 +226,18 @@
                 alert('Please enter your email on the first page');
                 location.href = 'index.html'; // Redirect to the first page if email is missing
             }
-
-            const savedAnswers = JSON.parse(localStorage.getItem(`q${currentPage}_answers`));
-            if (savedAnswers) {
-                // Prefill the answers in the text areas if available in localStorage
-                document.getElementById('question1').value = savedAnswers.q1 || '';
-                document.getElementById('question2').value = savedAnswers.q2 || '';
-            }
         };
+        async function submitInfospotsToSupabase() {
+            if (typeof window.submitInfospotsToSupabase === "function") {
+                await window.submitInfospotsToSupabase();
+            } else {
+                console.warn("submitInfospotsToSupabase not found.");
+            }
+        }
 
         // Navigate to the next page
-        function navigateToNextPage() {
-
+        async function navigateToNextPage() {
+            await submitInfospotsToSupabase();
             // Proceed to the next page
             if (currentPage < questions.length) {
                 location.href = `survey.html?page=${currentPage + 1}`;
@@ -165,11 +255,6 @@
             }
         }
 
-        // Simple email validation function
-        function validateEmail(email) {
-            const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            return re.test(String(email).toLowerCase());
-        }
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>

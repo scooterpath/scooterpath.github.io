@@ -1,99 +1,209 @@
-/* Global styles */
+/* =============================
+   Global Base Styles
+============================= */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
     color: #333;
-}
-
-h2 {
-    margin-top: 20px;
-    font-size: 24px;
-}
-
-/* Survey layout */
-.tour {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 30px;
-}
-
-.container {
-    background-color: white;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 90%;
-    max-width: 900px;
-}
-
-/* Infospot toggle */
-label {
-    display: inline-block;
-    margin: 10px 0;
+    box-sizing: border-box;
+  }
+  
+  h1, h2 {
+    color: #222;
+    margin-bottom: 20px;
     font-weight: bold;
-}
-
-/* Panorama viewer */
-.image-container {
-    width: 100%;
-    height: 500px;
-    background-color: #000;
-    margin: 20px 0;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* Survey inputs */
-.survey-inputs {
-    margin: 20px 0;
-    text-align: left;
-}
-
-.survey-inputs label {
-    display: block;
-    margin: 10px 0 5px;
-    font-weight: bold;
-}
-
-.survey-inputs textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: vertical;
-    min-height: 80px;
-}
-
-/* Buttons */
-.navigation-buttons {
     text-align: center;
+  }
+  
+  input, textarea, button {
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+  
+  /* =============================
+     Index/Login Styles
+  ============================= */
+  .auth-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem;
+    background: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+    flex-wrap: wrap;
+  }
+  
+  .auth-bar input {
+    padding: 5px 10px;
+    font-size: 1rem;
+    flex: 1 1 auto;
+  }
+  
+  .auth-bar button {
+    padding: 5px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .auth-bar button:hover {
+    background-color: #0056b3;
+  }
+  
+  #logoutBtn {
+    background-color: #dc3545;
+  }
+  
+  #logoutBtn:hover {
+    background-color: #b02a37;
+  }
+  
+  #userStatus {
+    font-size: 0.9rem;
+    margin-left: auto;
+    font-weight: bold;
+    color: #222;
+  }
+  
+  /* =============================
+     Index Page Styles
+  ============================= */
+  .welcome-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+  }
+  
+  .navigation-button {
     margin-top: 20px;
-}
-
-button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    font-size: 16px;
+  }
+  
+  button {
     background-color: #007BFF;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-button:hover {
+    transition: background-color 0.2s ease;
+    padding: 10px 20px;
+  }
+  
+  button:hover {
     background-color: #0056b3;
-}
-
-/* Email input (readonly) */
-#userEmail {
+  }
+  
+  #userInfo {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #444;
+  }
+  
+  p {
+    max-width: 500px;
+    margin: 10px auto;
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  /* =============================
+     Survey Page Styles
+  ============================= */
+  .tour {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: auto;
+  }
+  
+  .infospot-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .infospot-toggle label {
+    font-weight: bold;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  
+  /* Survey container (bigger width, responsive) */
+  .container {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 1200px;
+    min-height: 80vh;
+    margin: auto;
+  }
+  
+  /* Panorama viewer - larger height */
+  .image-container {
+    width: 100%;
+    height: 600px;
+    background-color: #000;
+    margin: 25px 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Infospot toggle checkbox */
+  #toggle-infospot {
+    margin-right: 5px;
+  }
+  
+  label {
+    font-weight: bold;
     display: block;
-    margin: 20px auto 10px;
+    margin: 10px 0 5px;
+  }
+  
+  /* Survey inputs */
+  .survey-inputs {
+    margin-top: 20px;
+  }
+  
+  .survey-inputs textarea {
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+  }
+  
+  /* Navigation buttons */
+  .navigation-buttons {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .navigation-buttons button {
+    margin: 0 10px;
+  }
+  
+  /* Email input (read-only) */
+  #userEmail {
+    display: block;
+    margin: 20px auto 0;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #999;
@@ -101,4 +211,5 @@ button:hover {
     width: 90%;
     max-width: 400px;
     background-color: #eee;
-}
+  }
+  

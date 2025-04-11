@@ -6,22 +6,7 @@
     <script type="module" src="./js/main.js"></script>
     <title>Scooter Path Survey Completion</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Centering styles */
-        .survey-completion {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; /* Full height of the viewport */
-            flex-direction: column;
-            text-align: center;
-        }
 
-        .survey-completion h2,
-        .survey-completion p {
-            margin: 0 0 20px 0; /* Add space between the heading and paragraph */
-        }
-    </style>
 </head>
 <body>
     <div class="survey-completion">
@@ -38,34 +23,10 @@
     </div>
 
     <script type="module">
-        import { saveSurveyAnswersToGitHub } from './js/githubresponse.js';
 
         // Handle the Submit button click
         document.getElementById('submit-btn').addEventListener('click', () => {
-            // Retrieve answers from localStorage
-            function getAnswers(n) {
-                const answers = {};
 
-                for (let i = 1; i <= n; i++) {
-                    answers[`q${i}`] = JSON.parse(localStorage.getItem(`q${i}_answers`));
-                }
-
-                return answers;
-            }
-
-            // Example usage:
-            const n = 15; // Specify the total number of questions
-            const answers = getAnswers(n);
-
-            // Combine answers into a final data object
-            const finalData = {
-                email: answers.q1.email,  // Assuming the email is the same for all pages
-                responses: answers,
-                timestamp: new Date().toISOString(),
-            };
-
-            // Function to store the answers to GitHub
-            saveSurveyAnswersToGitHub(finalData); // Ensure you have this function defined to handle the upload
         });
     </script>
 
