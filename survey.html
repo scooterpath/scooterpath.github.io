@@ -131,16 +131,6 @@
         document.getElementById('image-container').setAttribute('data-images', questions[currentPage - 1].images);
         document.getElementById('image-container').setAttribute('data-path', questions[currentPage - 1].path);
 
-        // Prefill saved answers if available in localStorage
-        window.onload = function() {
-            const savedEmail = localStorage.getItem('userEmail');
-            if (savedEmail) {
-                document.getElementById('userEmail').value = savedEmail; // Populate email field
-            } else {
-                alert('Please enter your email on the first page');
-                location.href = 'index.html'; // Redirect to the first page if email is missing
-            }
-        };
         async function submitInfospotsToSupabase() {
             if (typeof window.submitInfospotsToSupabase === "function") {
                 await window.submitInfospotsToSupabase();
