@@ -7,9 +7,30 @@
     <script type="module" src="./js/main.js"></script>
     <title>Scooter Path Survey</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- 🚀 Add Leaflet.js for free maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+      /* 🚀 Mini Map Widget styling */
+      #miniMap {
+        width: 300px;
+        height: 200px;
+        position: absolute;
+        top: 150px;
+        right: 40px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        z-index: 1000;
+      }
+    </style>
 </head>
 <body>
-      
+
+    <div id="miniMap"></div> <!-- 🚀 Added small map box -->
+
     <div class="tour">
         <div class="container">
             <div class="tour__head">
@@ -20,8 +41,7 @@
                   <input type="checkbox" id="toggle-infospot">
                   Enable Infospot Addition
                 </label>
-              </div>
-              
+            </div>
             
             <div class="image-container" id="image-container"></div>
 
@@ -34,135 +54,79 @@
         </div>
     </div>
 
-      
-    <script>
-        // Get the current page number from URL or default to 1
-        const currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
-        function generateImageNames(baseName, startIndex, endIndex, extension) {
-            const images = [];
-            for (let i = startIndex; i <= endIndex; i++) {
-                images.push(`${baseName}${i}.${extension}`);
-            }
-            return images.join(','); // Convert the array to a comma-separated string
+<script>
+    // 🗺️ Initialize mini OpenStreetMap
+    const map = L.map('miniMap').setView([41.7658, -72.6734], 15); // Example: Hartford (Boulevard area)
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    L.marker([41.7658, -72.6734]).addTo(map)
+      .bindPopup('Boulevard Street')
+      .openPopup();
+</script>
+
+<script>
+    const currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
+    function generateImageNames(baseName, startIndex, endIndex, extension) {
+        const images = [];
+        for (let i = startIndex; i <= endIndex; i++) {
+            images.push(`${baseName}${i}.${extension}`);
         }
-        // Define questions for each page
-        const questions = [
-            {
-                name: "Boulevard",
-                images: generateImageNames('blvd',0,19,'jpg'),
-                path: 'images/blvd/',
-            },
-            {
-                name: "Asylum",
-                images: generateImageNames('asylum',0,19,'jpg'),
-                path: 'images/asylum/',
-            },
-            {
-                name: "Brookfield",
-                images: generateImageNames('brookfield',0,19,'jpg'),
-                path: 'images/brookfield/'
-            },
-            {
-                name: "Canal Road",
-                images: generateImageNames('canalroad',0,21,'jpg'),
-                path: 'images/canalroad/'
-            },
-            {
-                name: "Capitol",
-                images: generateImageNames('capitol',0,19,'jpg'),
-                path: 'images/capitol/'
-            },
-            {
-                name: "Farmington",
-                images: generateImageNames('farmington',0,11,'jpg'),
-                path: 'images/farmington/'
-            },
-            {
-                name: "Fern",
-                images: generateImageNames('fern',0,21,'jpg'),
-                path: 'images/fern/'
-            },
-            {
-                name: "King Philip",
-                images: generateImageNames('kingphilip',0,13,'jpg'),
-                path: 'images/kingphilip/'
-            },
-            {
-                name: "Church",
-                images: generateImageNames('church',0,19,'jpg'),
-                path: 'images/church/'
-            },
-            {
-                name: "Mountain",
-                images: generateImageNames('mountain',0,21,'jpg'),
-                path: 'images/mountain/'
-            },
-            {
-                name: "Oakwood",
-                images: generateImageNames('oakwood',0,8,'jpg'),
-                path: 'images/oakwood/'
-            },
-            {
-                name: "Park",
-                images: generateImageNames('park',0,19,'jpg'),
-                path: 'images/park/'
-            },
-            {
-                name: "Ridgewood",
-                images: generateImageNames('ridgewood',0,15,'jpg'),
-                path: 'images/ridgewood/'
-            },
-            {
-                name: "Tunxis",
-                images: generateImageNames('tunxis',0,14,'jpg'),
-                path: 'images/tunxis/'
-            },
-            {
-                name: "West Boulevard",
-                images: generateImageNames('westblvd',0,19,'jpg'),
-                path: 'images/westblvd/'
-            }
-            // Add more questions here
-        ];
+        return images.join(',');
+    }
+    const questions = [
+        { name: "Boulevard", images: generateImageNames('blvd',0,19,'jpg'), path: 'images/blvd/' },
+        { name: "Asylum", images: generateImageNames('asylum',0,19,'jpg'), path: 'images/asylum/' },
+        { name: "Brookfield", images: generateImageNames('brookfield',0,19,'jpg'), path: 'images/brookfield/' },
+        { name: "Canal Road", images: generateImageNames('canalroad',0,21,'jpg'), path: 'images/canalroad/' },
+        { name: "Capitol", images: generateImageNames('capitol',0,19,'jpg'), path: 'images/capitol/' },
+        { name: "Farmington", images: generateImageNames('farmington',0,11,'jpg'), path: 'images/farmington/' },
+        { name: "Fern", images: generateImageNames('fern',0,21,'jpg'), path: 'images/fern/' },
+        { name: "King Philip", images: generateImageNames('kingphilip',0,13,'jpg'), path: 'images/kingphilip/' },
+        { name: "Church", images: generateImageNames('church',0,19,'jpg'), path: 'images/church/' },
+        { name: "Mountain", images: generateImageNames('mountain',0,21,'jpg'), path: 'images/mountain/' },
+        { name: "Oakwood", images: generateImageNames('oakwood',0,8,'jpg'), path: 'images/oakwood/' },
+        { name: "Park", images: generateImageNames('park',0,19,'jpg'), path: 'images/park/' },
+        { name: "Ridgewood", images: generateImageNames('ridgewood',0,15,'jpg'), path: 'images/ridgewood/' },
+        { name: "Tunxis", images: generateImageNames('tunxis',0,14,'jpg'), path: 'images/tunxis/' },
+        { name: "West Boulevard", images: generateImageNames('westblvd',0,19,'jpg'), path: 'images/westblvd/' }
+    ];
 
-        // Set the title and image container based on the current page
-        //document.getElementById('question-title').textContent = questions[currentPage - 1].title;
-        document.getElementById('question-title').textContent = `Question ${currentPage} / ${questions.length}: ${questions[currentPage - 1].name}`;
-        document.getElementById('image-container').setAttribute('data-images', questions[currentPage - 1].images);
-        document.getElementById('image-container').setAttribute('data-path', questions[currentPage - 1].path);
+    document.getElementById('question-title').textContent = `Question ${currentPage} / ${questions.length}: ${questions[currentPage - 1].name}`;
+    document.getElementById('image-container').setAttribute('data-images', questions[currentPage - 1].images);
+    document.getElementById('image-container').setAttribute('data-path', questions[currentPage - 1].path);
 
-        async function submitInfospotsToSupabase() {
-            if (typeof window.submitInfospotsToSupabase === "function") {
-                await window.submitInfospotsToSupabase();
-            } else {
-                console.warn("submitInfospotsToSupabase not found.");
-            }
+    async function submitInfospotsToSupabase() {
+        if (typeof window.submitInfospotsToSupabase === "function") {
+            await window.submitInfospotsToSupabase();
+        } else {
+            console.warn("submitInfospotsToSupabase not found.");
         }
+    }
 
-        // Navigate to the next page
-        async function navigateToNextPage() {
-            await submitInfospotsToSupabase();
-            // Proceed to the next page
-            if (currentPage < questions.length) {
-                location.href = `survey.html?page=${currentPage + 1}`;
-            } else {
-                location.href = 'final.html'; // Redirect to the final page if it's the last question
-            }
+    async function navigateToNextPage() {
+        await submitInfospotsToSupabase();
+        if (currentPage < questions.length) {
+            location.href = `survey.html?page=${currentPage + 1}`;
+        } else {
+            location.href = 'final.html';
         }
+    }
 
-        // Navigate to the previous page
-        function navigateToPreviousPage() {
-            if (currentPage > 1) {
-                location.href = `survey.html?page=${currentPage - 1}`;
-            } else {
-                location.href = 'index.html'; // Redirect to the first page if it's the first question
-            }
+    function navigateToPreviousPage() {
+        if (currentPage > 1) {
+            location.href = `survey.html?page=${currentPage - 1}`;
+        } else {
+            location.href = 'index.html';
         }
+    }
+</script>
 
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
+<script src="./js/panolens.min.js"></script>
+<script src="./js/main.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
-    <script src="./js/panolens.min.js"></script>
-    <script src="./js/main.js"></script>
 </body>
 </html>

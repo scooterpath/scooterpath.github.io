@@ -1,0 +1,18 @@
+[
+    { "name": "Boulevard", "images": "blvd0.jpg,blvd1.jpg,blvd2.jpg,...,blvd19.jpg", "path": "images/blvd/" },
+    { "name": "Asylum", "images": "asylum0.jpg,asylum1.jpg,asylum2.jpg,...,asylum19.jpg", "path": "images/asylum/" },
+    { "name": "Brookfield", "images": "brookfield0.jpg,brookfield1.jpg,brookfield2.jpg,...,brookfield19.jpg", "path": "images/brookfield/" },
+    { "name": "Canal Road", "images": "canalroad0.jpg,canalroad1.jpg,canalroad2.jpg,...,canalroad21.jpg", "path": "images/canalroad/" },
+    { "name": "Capitol", "images": "capitol0.jpg,capitol1.jpg,capitol2.jpg,...,capitol19.jpg", "path": "images/capitol/" },
+    { "name": "Farmington", "images": "farmington0.jpg,farmington1.jpg,farmington2.jpg,...,farmington11.jpg", "path": "images/farmington/" },
+    { "name": "Fern", "images": "fern0.jpg,fern1.jpg,fern2.jpg,...,fern21.jpg", "path": "images/fern/" },
+    { "name": "King Philip", "images": "kingphilip0.jpg,kingphilip1.jpg,kingphilip2.jpg,...,kingphilip13.jpg", "path": "images/kingphilip/" },
+    { "name": "Church", "images": "church0.jpg,church1.jpg,church2.jpg,...,church19.jpg", "path": "images/church/" },
+    { "name": "Mountain", "images": "mountain0.jpg,mountain1.jpg,mountain2.jpg,...,mountain21.jpg", "path": "images/mountain/" },
+    { "name": "Oakwood", "images": "oakwood0.jpg,oakwood1.jpg,oakwood2.jpg,...,oakwood8.jpg", "path": "images/oakwood/" },
+    { "name": "Park", "images": "park0.jpg,park1.jpg,park2.jpg,...,park19.jpg", "path": "images/park/" },
+    { "name": "Ridgewood", "images": "ridgewood0.jpg,ridgewood1.jpg,ridgewood2.jpg,...,ridgewood15.jpg", "path": "images/ridgewood/" },
+    { "name": "Tunxis", "images": "tunxis0.jpg,tunxis1.jpg,tunxis2.jpg,...,tunxis14.jpg", "path": "images/tunxis/" },
+    { "name": "West Boulevard", "images": "westblvd0.jpg,westblvd1.jpg,westblvd2.jpg,...,westblvd19.jpg", "path": "images/westblvd/" }
+  ]
+  
