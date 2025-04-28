@@ -62,8 +62,8 @@ function setupPanolens(imageContainer, dataImages, imagePath, enableInfospotTogg
         if (!description) return;
 
         const infospot = new PANOLENS.Infospot(300, PANOLENS.DataImage.Info);
-        infospot.position.set(-point.x + 100, point.y+400, point.z); // optional offset
-        infospot.addHoverText(description);
+        infospot.position.set(-point.x + 150, point.y+400, point.z); // optional offset
+        infospot.addHoverText(description,-200);
         currentPanorama.add(infospot);
         addedInfospots.push({
           x: -point.x,
@@ -106,16 +106,15 @@ window.submitInfospotsToSupabase = async function () {
   }
   
   const infospots = window.getInfospots();
-  const imageName = window.getCurrentImage();
-  console.log(imageName)
   console.log(infospots.length)
-  if (!infospots.length || !imageName) return;
+  if (!infospots.length) return;
 
   for (const spot of infospots) {
+    console.log(spot.image)
     const { error } = await supabase
       .from('coordinates') // <-- make sure this matches your actual table
       .insert({
-        picture_id: imageName,
+        picture_id: spot.image,
         x_coord: spot.x,
         y_coord: spot.y,
         z_coord: spot.z,
