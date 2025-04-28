@@ -9,33 +9,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+      
     <div class="tour">
         <div class="container">
             <div class="tour__head">
                 <h2 id="question-title">Question</h2>
             </div>
-
+            <div class="infospot-toggle">
+                <label for="toggle-infospot">
+                  <input type="checkbox" id="toggle-infospot">
+                  Enable Infospot Addition
+                </label>
+              </div>
+              
+            
             <div class="image-container" id="image-container"></div>
-
-            <!-- Survey Text Boxes -->
-            <div class="survey-inputs">
-                <label for="question1">What do you think about this path when taken on a bike?</label>
-                <textarea id="question1" rows="3" placeholder="Type your answer here..."></textarea>
-
-                <label for="question2">Any suggestions for improvement?</label>
-                <textarea id="question2" rows="3" placeholder="Type your answer here..."></textarea>
-            </div>
 
             <!-- Navigation Buttons -->
             <div class="navigation-buttons">
                 <button id="prev-btn" onclick="navigateToPreviousPage()">Previous</button>
                 <button id="next-btn" onclick="navigateToNextPage()">Next</button>
+                <button id="save" onclick="submitInfospotsToSupabase()">Save</button>
             </div>
         </div>
     </div>
 
-    <input type="email" id="userEmail" placeholder="Enter your email" required readonly>
-
+      
     <script>
         // Get the current page number from URL or default to 1
         const currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
@@ -132,49 +131,17 @@
         document.getElementById('image-container').setAttribute('data-images', questions[currentPage - 1].images);
         document.getElementById('image-container').setAttribute('data-path', questions[currentPage - 1].path);
 
-        // Prefill saved answers if available in localStorage
-        window.onload = function() {
-            const savedEmail = localStorage.getItem('userEmail');
-            if (savedEmail) {
-                document.getElementById('userEmail').value = savedEmail; // Populate email field
+        async function submitInfospotsToSupabase() {
+            if (typeof window.submitInfospotsToSupabase === "function") {
+                await window.submitInfospotsToSupabase();
             } else {
-                alert('Please enter your email on the first page');
-                location.href = 'index.html'; // Redirect to the first page if email is missing
+                console.warn("submitInfospotsToSupabase not found.");
             }
-
-            const savedAnswers = JSON.parse(localStorage.getItem(`q${currentPage}_answers`));
-            if (savedAnswers) {
-                // Prefill the answers in the text areas if available in localStorage
-                document.getElementById('question1').value = savedAnswers.q1 || '';
-                document.getElementById('question2').value = savedAnswers.q2 || '';
-            }
-        };
-
-        // Save answers to localStorage when the user clicks "Next"
-        function saveAnswers() {
-            const question1 = document.getElementById('question1').value;
-            const question2 = document.getElementById('question2').value;
-            const email = localStorage.getItem('userEmail');
-
-            if (!email || !validateEmail(email)) {
-                alert('Please enter a valid email.');
-                return;
-            }
-
-            // Store answers for the current page
-            localStorage.setItem(`q${currentPage}_answers`, JSON.stringify({
-                email,
-                q1: question1,
-                q2: question2,
-                timestamp: new Date().toISOString(),
-                page: `q${currentPage}`,
-            }));
         }
 
         // Navigate to the next page
-        function navigateToNextPage() {
-            saveAnswers();
-
+        async function navigateToNextPage() {
+            await submitInfospotsToSupabase();
             // Proceed to the next page
             if (currentPage < questions.length) {
                 location.href = `survey.html?page=${currentPage + 1}`;
@@ -192,11 +159,6 @@
             }
         }
 
-        // Simple email validation function
-        function validateEmail(email) {
-            const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            return re.test(String(email).toLowerCase());
-        }
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
