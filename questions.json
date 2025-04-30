@@ -1,18 +1,18 @@
 [
-    { "name": "Boulevard", "images": "blvd0.jpg,blvd1.jpg,blvd2.jpg,...,blvd19.jpg", "path": "images/blvd/" },
-    { "name": "Asylum", "images": "asylum0.jpg,asylum1.jpg,asylum2.jpg,...,asylum19.jpg", "path": "images/asylum/" },
-    { "name": "Brookfield", "images": "brookfield0.jpg,brookfield1.jpg,brookfield2.jpg,...,brookfield19.jpg", "path": "images/brookfield/" },
-    { "name": "Canal Road", "images": "canalroad0.jpg,canalroad1.jpg,canalroad2.jpg,...,canalroad21.jpg", "path": "images/canalroad/" },
-    { "name": "Capitol", "images": "capitol0.jpg,capitol1.jpg,capitol2.jpg,...,capitol19.jpg", "path": "images/capitol/" },
-    { "name": "Farmington", "images": "farmington0.jpg,farmington1.jpg,farmington2.jpg,...,farmington11.jpg", "path": "images/farmington/" },
-    { "name": "Fern", "images": "fern0.jpg,fern1.jpg,fern2.jpg,...,fern21.jpg", "path": "images/fern/" },
-    { "name": "King Philip", "images": "kingphilip0.jpg,kingphilip1.jpg,kingphilip2.jpg,...,kingphilip13.jpg", "path": "images/kingphilip/" },
-    { "name": "Church", "images": "church0.jpg,church1.jpg,church2.jpg,...,church19.jpg", "path": "images/church/" },
-    { "name": "Mountain", "images": "mountain0.jpg,mountain1.jpg,mountain2.jpg,...,mountain21.jpg", "path": "images/mountain/" },
-    { "name": "Oakwood", "images": "oakwood0.jpg,oakwood1.jpg,oakwood2.jpg,...,oakwood8.jpg", "path": "images/oakwood/" },
-    { "name": "Park", "images": "park0.jpg,park1.jpg,park2.jpg,...,park19.jpg", "path": "images/park/" },
-    { "name": "Ridgewood", "images": "ridgewood0.jpg,ridgewood1.jpg,ridgewood2.jpg,...,ridgewood15.jpg", "path": "images/ridgewood/" },
-    { "name": "Tunxis", "images": "tunxis0.jpg,tunxis1.jpg,tunxis2.jpg,...,tunxis14.jpg", "path": "images/tunxis/" },
-    { "name": "West Boulevard", "images": "westblvd0.jpg,westblvd1.jpg,westblvd2.jpg,...,westblvd19.jpg", "path": "images/westblvd/" }
+    { "name": "Boulevard", "filename": "blvd", "range": [0, 19], "latitude": 41.7566837, "longitude": -72.744524 },
+    { "name": "Asylum", "filename": "asylum", "range": [0, 19], "latitude": 41.7674643, "longitude": -72.6783959 },
+    { "name": "Brookfield", "filename": "brookfield", "range": [0, 19], "latitude": 41.7459616, "longitude": -72.7103635 },
+    { "name": "Canal Road", "filename": "canalroad", "range": [0, 21], "latitude": 41.7688455, "longitude": -72.7798214 },
+    { "name": "Capitol", "filename": "capitol", "range": [0, 19], "latitude": 41.7628371, "longitude": -72.6983687 },
+    { "name": "Farmington", "filename": "farmington", "range": [0, 11], "latitude": 41.744615, "longitude": -72.7859738 },
+    { "name": "Fern", "filename": "fern", "range": [0, 21], "latitude": 41.76947, "longitude": -72.7392742 },
+    { "name": "King Philip", "filename": "kingphilip", "range": [0, 13], "latitude": 41.7949719, "longitude": -72.7459673 },
+    { "name": "Church", "filename": "church", "range": [0, 19], "latitude": 41.7691729, "longitude": -72.6802803 },
+    { "name": "Mountain", "filename": "mountain", "range": [0, 21], "latitude": 41.7299276, "longitude": -72.7043902 },
+    { "name": "Oakwood", "filename": "oakwood", "range": [0, 8], "latitude": 41.7447676, "longitude": -72.7235452 },
+    { "name": "Park", "filename": "park", "range": [0, 19], "latitude": 41.7582439, "longitude": -72.6953225 },
+    { "name": "Ridgewood", "filename": "ridgewood", "range": [0, 15], "latitude": 41.7415751, "longitude": -72.7614162 },
+    { "name": "Tunxis", "filename": "tunxis", "range": [0, 14], "latitude": 41.7418631, "longitude": -72.770046 },
+    { "name": "West Boulevard", "filename": "westblvd", "range": [0, 19], "latitude": 41.7614595, "longitude": -72.7134747 }
   ]
   

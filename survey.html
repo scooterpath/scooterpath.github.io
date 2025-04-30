@@ -25,6 +25,7 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         z-index: 1000;
       }
+
     </style>
 </head>
 <body>
@@ -49,23 +50,10 @@
             <div class="navigation-buttons">
                 <button id="prev-btn" onclick="navigateToPreviousPage()">Previous</button>
                 <button id="next-btn" onclick="navigateToNextPage()">Next</button>
-                <button id="save" onclick="submitInfospotsToSupabase()">Save</button>
             </div>
         </div>
     </div>
 
-<script>
-    // 🗺️ Initialize mini OpenStreetMap
-    const map = L.map('miniMap').setView([41.7658, -72.6734], 15); // Example: Hartford (Boulevard area)
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    L.marker([41.7658, -72.6734]).addTo(map)
-      .bindPopup('Boulevard Street')
-      .openPopup();
-</script>
 
 <script>
     const currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
@@ -76,27 +64,35 @@
         }
         return images.join(',');
     }
-    const questions = [
-        { name: "Boulevard", images: generateImageNames('blvd',0,19,'jpg'), path: 'images/blvd/' },
-        { name: "Asylum", images: generateImageNames('asylum',0,19,'jpg'), path: 'images/asylum/' },
-        { name: "Brookfield", images: generateImageNames('brookfield',0,19,'jpg'), path: 'images/brookfield/' },
-        { name: "Canal Road", images: generateImageNames('canalroad',0,21,'jpg'), path: 'images/canalroad/' },
-        { name: "Capitol", images: generateImageNames('capitol',0,19,'jpg'), path: 'images/capitol/' },
-        { name: "Farmington", images: generateImageNames('farmington',0,11,'jpg'), path: 'images/farmington/' },
-        { name: "Fern", images: generateImageNames('fern',0,21,'jpg'), path: 'images/fern/' },
-        { name: "King Philip", images: generateImageNames('kingphilip',0,13,'jpg'), path: 'images/kingphilip/' },
-        { name: "Church", images: generateImageNames('church',0,19,'jpg'), path: 'images/church/' },
-        { name: "Mountain", images: generateImageNames('mountain',0,21,'jpg'), path: 'images/mountain/' },
-        { name: "Oakwood", images: generateImageNames('oakwood',0,8,'jpg'), path: 'images/oakwood/' },
-        { name: "Park", images: generateImageNames('park',0,19,'jpg'), path: 'images/park/' },
-        { name: "Ridgewood", images: generateImageNames('ridgewood',0,15,'jpg'), path: 'images/ridgewood/' },
-        { name: "Tunxis", images: generateImageNames('tunxis',0,14,'jpg'), path: 'images/tunxis/' },
-        { name: "West Boulevard", images: generateImageNames('westblvd',0,19,'jpg'), path: 'images/westblvd/' }
+        const questions = [
+    { name: "Boulevard", images: generateImageNames('blvd', 0, 19, 'jpg'), path: 'images/blvd/', latitude: 41.7566837, longitude: -72.744524},
+    { name: "Asylum", images: generateImageNames('asylum', 0, 19, 'jpg'), path: 'images/asylum/', latitude: 41.7674643, longitude: -72.6783959},
+    { name: "Brookfield", images: generateImageNames('brookfield', 0, 19, 'jpg'), path: 'images/brookfield/', latitude: 41.7459616, longitude: -72.7103635},
+    { name: "Canal Road", images: generateImageNames('canalroad', 0, 21, 'jpg'), path: 'images/canalroad/', latitude: 41.7688455, longitude: -72.7798214 },
+    { name: "Capitol", images: generateImageNames('capitol', 0, 19, 'jpg'), path: 'images/capitol/', latitude: 41.7628371, longitude: -72.6983687},
+    { name: "Farmington", images: generateImageNames('farmington', 0, 11, 'jpg'), path: 'images/farmington/', latitude: 41.744615, longitude:-72.7859738 },
+    { name: "Fern", images: generateImageNames('fern', 0, 21, 'jpg'), path: 'images/fern/', latitude: 41.76947, longitude: -72.7392742 },
+    { name: "King Philip", images: generateImageNames('kingphilip', 0, 13, 'jpg'), path: 'images/kingphilip/', latitude: 41.7949719, longitude: -72.7459673 },
+    { name: "Church", images: generateImageNames('church', 0, 19, 'jpg'), path: 'images/church/', latitude: 41.7691729, longitude: -72.6802803 },
+    { name: "Mountain", images: generateImageNames('mountain', 0, 21, 'jpg'), path: 'images/mountain/', latitude: 41.7299276, longitude: -72.7043902 },
+    { name: "Oakwood", images: generateImageNames('oakwood', 0, 8, 'jpg'), path: 'images/oakwood/', latitude: 41.7447676, longitude: -72.7235452},
+    { name: "Park", images: generateImageNames('park', 0, 19, 'jpg'), path: 'images/park/', latitude: 41.7582439, longitude: -72.6953225},
+    { name: "Ridgewood", images: generateImageNames('ridgewood', 0, 15, 'jpg'), path: 'images/ridgewood/', latitude: 41.7415751, longitude: -72.7614162},
+    { name: "Tunxis", images: generateImageNames('tunxis', 0, 14, 'jpg'), path: 'images/tunxis/', latitude: 41.7418631, longitude: -72.770046 },
+    { name: "West Boulevard", images: generateImageNames('westblvd', 0, 19, 'jpg'), path: 'images/westblvd/', latitude: 41.7614595, longitude: -72.7134747 }
     ];
 
+    const currentQuestion = questions[currentPage - 1];
     document.getElementById('question-title').textContent = `Question ${currentPage} / ${questions.length}: ${questions[currentPage - 1].name}`;
     document.getElementById('image-container').setAttribute('data-images', questions[currentPage - 1].images);
     document.getElementById('image-container').setAttribute('data-path', questions[currentPage - 1].path);
+
+    const map = L.map('miniMap').setView([currentQuestion.latitude, currentQuestion.longitude], 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
 
     async function submitInfospotsToSupabase() {
         if (typeof window.submitInfospotsToSupabase === "function") {

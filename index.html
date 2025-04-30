@@ -59,6 +59,18 @@
 
     <p><b>This survey will remain anonymous, but login is required to track responses.</b></p>
 
+    <!-- Help Dropdown -->
+    <div style="margin-top: 20px;">
+      <button onclick="toggleInstructions()" style="background-color: #28a745;">How to Use This Site</button>
+      <div id="instructions" style="display: none; margin-top: 15px; max-width: 600px; text-align: left; color: white;">
+        <p><strong>1. Sign Up or Log In:</strong> Enter your email and password. You must be logged in to start the survey.</p>
+        <p><strong>2. Start Survey:</strong> Click the "Start Survey" button after logging in. You’ll be taken to a map view of Hartford streets.</p>
+        <p><strong>3. Add Annotations:</strong> Enable infospot mode to click on the image and describe road features like potholes or signs For accurate mouse detection please try to center the object at the screen when marking an infospot.</p>
+        <p><strong>4. Navigation:</strong> Use the “Next” and “Previous” buttons to move between questions. Your data is saved when you click “Next.”</p>
+        <p><strong>5. Privacy:</strong> Your responses are stored anonymously, but login is needed to track completion.</p>
+      </div>
+    </div>
+
     <div class="navigation-button">
       <button id="startSurveyBtn" onclick="location.href='survey.html?page=1'" disabled>Start Survey</button>
     </div>
@@ -124,7 +136,6 @@
         logoutBtn.style.display = "inline-block";
         startSurveyBtn.disabled = false;
 
-        // Optionally save user UUID to localStorage for later usage
         localStorage.setItem("userEmail", user.email);
         localStorage.setItem("userUUID", user.id);
       } else {
@@ -139,6 +150,11 @@
         localStorage.removeItem("userEmail");
         localStorage.removeItem("userUUID");
       }
+    }
+
+    function toggleInstructions() {
+      const box = document.getElementById('instructions');
+      box.style.display = box.style.display === 'none' ? 'block' : 'none';
     }
 
     signupBtn.addEventListener("click", signup);
