@@ -212,4 +212,7 @@ body {
     max-width: 400px;
     background-color: #eee;
   }
+  .navigation-buttons button#save {
+    margin: 0 50px;
+  }
   
