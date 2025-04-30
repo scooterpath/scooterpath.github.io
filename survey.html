@@ -8,12 +8,12 @@
     <title>Scooter Path Survey</title>
     <link rel="stylesheet" href="style.css">
 
-    <!-- 🚀 Add Leaflet.js for free maps -->
+    <!-- Add Leaflet.js for free maps -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <style>
-      /* 🚀 Mini Map Widget styling */
+      /* Mini Map Widget styling */
       #miniMap {
         width: 300px;
         height: 200px;
@@ -30,7 +30,7 @@
 </head>
 <body>
 
-    <div id="miniMap"></div> <!-- 🚀 Added small map box -->
+    <div id="miniMap"></div> <!-- Added small map box -->
 
     <div class="tour">
         <div class="container">
@@ -67,6 +67,7 @@
         const questions = [
     { name: "Albany and Main", images: generateImageNames('albanymain', 0, 0, 'jpg'), path: 'images/albanymain/', latitude:41.7858292, longitude: -72.747071},
     { name: "Woodland and Asylum", images: generateImageNames('woodlandasylum', 0, 0, 'jpg'), path: 'images/woodlandasylum/', latitude: 41.7724096, longitude: -72.7007319},
+    { name: "Capitol and Broad", images: generateImageNames('capitolbroad', 0, 0, 'jpg'), path: 'images/capitolbroad/', latitude: 41.7636985, longitude: -72.6866163 },
     { name: "Boulevard", images: generateImageNames('blvd', 0, 19, 'jpg'), path: 'images/blvd/', latitude: 41.7566837, longitude: -72.744524},
     { name: "Asylum", images: generateImageNames('asylum', 0, 19, 'jpg'), path: 'images/asylum/', latitude: 41.7674643, longitude: -72.6783959},
     { name: "Brookfield", images: generateImageNames('brookfield', 0, 19, 'jpg'), path: 'images/brookfield/', latitude: 41.7459616, longitude: -72.7103635},
