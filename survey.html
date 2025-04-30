@@ -65,6 +65,8 @@
         return images.join(',');
     }
         const questions = [
+    { name: "Albany and Main", images: generateImageNames('albanymain', 0, 0, 'jpg'), path: 'images/albanymain/', latitude:41.7858292, longitude: -72.747071},
+    { name: "Woodland and Asylum", images: generateImageNames('woodlandasylum', 0, 0, 'jpg'), path: 'images/woodlandasylum/', latitude: 41.7724096, longitude: -72.7007319},
     { name: "Boulevard", images: generateImageNames('blvd', 0, 19, 'jpg'), path: 'images/blvd/', latitude: 41.7566837, longitude: -72.744524},
     { name: "Asylum", images: generateImageNames('asylum', 0, 19, 'jpg'), path: 'images/asylum/', latitude: 41.7674643, longitude: -72.6783959},
     { name: "Brookfield", images: generateImageNames('brookfield', 0, 19, 'jpg'), path: 'images/brookfield/', latitude: 41.7459616, longitude: -72.7103635},
@@ -80,6 +82,7 @@
     { name: "Ridgewood", images: generateImageNames('ridgewood', 0, 15, 'jpg'), path: 'images/ridgewood/', latitude: 41.7415751, longitude: -72.7614162},
     { name: "Tunxis", images: generateImageNames('tunxis', 0, 14, 'jpg'), path: 'images/tunxis/', latitude: 41.7418631, longitude: -72.770046 },
     { name: "West Boulevard", images: generateImageNames('westblvd', 0, 19, 'jpg'), path: 'images/westblvd/', latitude: 41.7614595, longitude: -72.7134747 }
+    
     ];
 
     const currentQuestion = questions[currentPage - 1];
